@@ -12,31 +12,72 @@
       src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
       crossorigin
     ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <title>Document</title>
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      class LikeButton extends React.Component {
+    <script type="text/babel">
+      class Gugudan extends React.Component {
         constructor(props) {
           super(props);
           this.state = {
-            liked: false,
+            value: "",
+            number1: Math.ceil(Math.random() * 9),
+            number2: Math.ceil(Math.random() * 9),
+            result: "",
           };
         }
+        onChange = e => {
+          this.setState({ value: e.target.value });
+        };
+        onSubmit = e => {
+          e.preventDefault();
+          console.log(this.state.value);
+          if (
+            parseInt(this.state.value) ===
+            this.state.number1 * this.state.number2
+          )
+            this.setState(prevState => {
+              return {
+                result: `${prevState.value}딩동댕!`,
+                number1: Math.ceil(Math.random() * 9),
+                number2: Math.ceil(Math.random() * 9),
+                value: "",
+              };
+            });
+          else this.setState({ result: "땡!", value: "" });
+          this.input.focus();
+        };
+        input;
+        onRefInput = c => {
+          console.log(c);
+          this.input = c;
+        };
         render() {
           return (
-            <button
-              onClick={() => {
-                this.setState({ liked: true });
-              }}
-            ></button>
+            <div>
+              <h1>구구단</h1>
+              <h3>
+                {this.state.number1}곱하기{this.state.number2}은?
+              </h3>
+              <form onSubmit={this.onSubmit}>
+                <input
+                  ref={this.onRefInput}
+                  type="number"
+                  value={this.state.value}
+                  onChange={this.onChange}
+                />
+                <button>입력!</button>
+              </form>
+              <div>{this.state.result}</div>
+            </div>
           );
         }
       }
     </script>
-    <script>
-      ReactDOM.render(<LikeButton />, document.querySelector("#root"));
+    <script type="text/babel">
+      ReactDOM.render(<Gugudan />, document.querySelector("#root"));
     </script>
   </body>
 </html>
