@@ -1,6 +1,5 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
+import NumberBaseballHooks from "./NumberBaseballHooks";
 
-import NumberBaseball from "./NumberBaseball";
-
-ReactDOM.render(<NumberBaseball />, document.querySelector("#root"));
+ReactDOM.render(<NumberBaseballHooks />, document.querySelector("#root"));

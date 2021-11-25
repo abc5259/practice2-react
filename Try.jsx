@@ -1,14 +1,11 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class Try extends Component {
-  render() {
-    console.log(this.props);
-    return (
-      <li>
-        {this.props.tryInfo.result}, {this.props.tryInfo.try}
-      </li>
-    );
-  }
-}
+const Try = ({ tryInfo }) => {
+  return (
+    <li>
+      {tryInfo.result}, {tryInfo.try}
+    </li>
+  );
+};
 
 export default Try;

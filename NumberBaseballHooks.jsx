@@ -1,0 +1,76 @@
+import React, { useState } from "react";
+import Try from "./Try";
+
+function getnumbers() {
+  const candidate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const array = [];
+  for (let i = 0; i < 4; i++) {
+    const chosen = candidate.splice(Math.floor(Math.random() * (9 - i)), 1)[0];
+    array.push(chosen);
+  }
+  return array;
+}
+const NumberBaseballHooks = () => {
+  const [result, setResult] = useState("");
+  const [value, setValue] = useState("");
+  const [answer, setAnswer] = useState(getnumbers());
+  const [tries, setTries] = useState([]);
+  const onChange = e => {
+    setValue(e.target.value);
+  };
+  const onSubmit = e => {
+    e.preventDefault();
+    if (value === answer.join("")) {
+      setResult("홈런");
+      setTries(prevTries => [...prevTries, { try: value, result: "홈런" }]);
+      alert("게임을 다시 시작합니디");
+      setValue("");
+      setAnswer(getnumbers());
+      setTries([]);
+    } else {
+      const answerArray = value.split("").map(v => parseInt(v));
+      let strike = 0;
+      let ball = 0;
+      if (tries.length >= 9) {
+        setResult(`10번 넘게 틀려서 실패! 답은 ${answer.join(",")}이었습니다.`);
+        setAnswer(getnumbers());
+        alert("게임을 다시 시작합니디");
+        setValue("");
+        setAnswer(getnumbers());
+        setTries([]);
+      } else {
+        answerArray.forEach((item, i) => {
+          if (item === answer[i]) strike++;
+          else if (answer.indexOf(item) !== -1) ball++;
+        });
+        setResult(`${strike}스트라이크 ${ball}볼`);
+        setTries(prevTries => [
+          ...prevTries,
+          { try: value, result: `${strike}스트라이크 ${ball}볼` },
+        ]);
+        setValue("");
+      }
+    }
+  };
+  return (
+    <>
+      <div>숫자야구</div>
+      <form onSubmit={onSubmit}>
+        <input type="number" value={value} onChange={onChange} maxLength={4} />
+        <button>입력</button>
+      </form>
+      <div>시도: {tries.length}</div>
+      <ul>
+        {tries.map((item, i) => (
+          <Try
+            key={`${item.result}${item.try}+${i}`}
+            tryInfo={item}
+            index={i}
+          />
+        ))}
+      </ul>
+      <div>{result}</div>
+    </>
+  );
+};
+export default NumberBaseballHooks;
