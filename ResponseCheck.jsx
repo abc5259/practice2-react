@@ -6,7 +6,6 @@ class ResponseCheck extends Component {
     message: "클릭해서 시작하세요",
     result: [],
   };
-
   timout;
   startTime;
   endTime;
@@ -23,8 +22,8 @@ class ResponseCheck extends Component {
           state: "now",
           message: "클릭 하세요!",
         });
+        this.startTime = new Date();
       }, Math.random() * 1000 + 2000);
-      this.startTime = new Date();
     } else if (state === "ready") {
       this.setState({
         state: "waiting",
