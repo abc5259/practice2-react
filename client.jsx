@@ -1,5 +1,5 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
-import NumberBaseballHooks from "./NumberBaseballHooks";
+import ResponseCheck from "./ResponseCheck";
 
-ReactDOM.render(<NumberBaseballHooks />, document.querySelector("#root"));
+ReactDOM.render(<ResponseCheck />, document.querySelector("#root"));
