@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 
-// class -> constructor -> render -> ref -> componentDidMount
-// -> setState / props바뀔때 -> shouldComponentUpdate(return true일때) ->render -> componentDidUpdate
-// 부모가 나를  없앴을 때 -> componentWillUnmount -> 소멸
-
 const rspCoords = {
   바위: "0",
   가위: "-142px",
@@ -17,8 +13,6 @@ const scores = {
 };
 
 const computerChoice = imgCoord => {
-  // console.log(Object.entries(rspCoords));
-  // console.log(imgCoord);
   return Object.entries(rspCoords).find(v => v[1] === imgCoord)[0];
 };
 
@@ -46,16 +40,9 @@ class RSP extends Component {
     }
   };
   componentDidMount() {
-    //컴포넌트가 처음 랜더링 됐을 때 실행 setState로 리랜더링 됐을때는 실행 되지 않음 -> 비동기 요청을 많이 함
     this.interval = setInterval(this.changehand, 100);
   }
-  // componentDidUpdate() {
-  //   //리랜더링 후에 실행
-  // }
-  // componentWillUnmount() {
-  //   // 컴포넌트가 제거되기 직전 실행, 비동기 요청 정리를 많이 함.
-  // }
-  onClickBtn = choice => {
+  onClickBtn = choice => () => {
     clearInterval(this.interval);
     const { imgCoord } = this.state;
     const myScore = scores[choice];
@@ -95,25 +82,17 @@ class RSP extends Component {
           }}
         />
         <div>
-          <button
-            id="rock"
-            className="btn"
-            onClick={() => this.onClickBtn("바위")}
-          >
+          <button id="rock" className="btn" onClick={this.onClickBtn("바위")}>
             바위
           </button>
           <button
             id="scissor"
             className="btn"
-            onClick={() => this.onClickBtn("가위")}
+            onClick={this.onClickBtn("가위")}
           >
             가위
           </button>
-          <button
-            id="paper"
-            className="btn"
-            onClick={() => this.onClickBtn("보")}
-          >
+          <button id="paper" className="btn" onClick={this.onClickBtn("보")}>
             보
           </button>
         </div>

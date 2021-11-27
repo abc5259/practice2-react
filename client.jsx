@@ -1,5 +1,5 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
-import RSP from "./RSP.jsx";
+import RSPHooks from "./RSPHooks.jsx";
 
-ReactDOM.render(<RSP />, document.querySelector("#root"));
+ReactDOM.render(<RSPHooks />, document.querySelector("#root"));
