@@ -1,5 +1,5 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
-import ResponseCheckHooks from "./ResponseCheckHooks";
+import RSP from "./RSP.jsx";
 
-ReactDOM.render(<ResponseCheckHooks />, document.querySelector("#root"));
+ReactDOM.render(<RSP />, document.querySelector("#root"));
