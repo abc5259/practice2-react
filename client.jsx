@@ -1,5 +1,5 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
-import Lotto from "./Lotto.jsx";
+import LottoHooks from "./LottoHooks.jsx";
 
-ReactDOM.render(<Lotto />, document.querySelector("#root"));
+ReactDOM.render(<LottoHooks />, document.querySelector("#root"));
