@@ -45,6 +45,7 @@ const LottoHooks = () => {
   };
 
   useEffect(() => {
+    console.log("useEffect");
     runTimeouts();
     return () => {
       timeouts.current.forEach(v => clearTimeout(v));

@@ -1,5 +1,5 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
-import LottoHooks from "./LottoHooks.jsx";
+import UseTabsApp from "./useTabsApp.jsx";
 
-ReactDOM.render(<LottoHooks />, document.querySelector("#root"));
+ReactDOM.render(<UseTabsApp />, document.querySelector("#root"));
