@@ -1,5 +1,5 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
-import RSPHooks from "./RSPHooks.jsx";
+import Lotto from "./Lotto.jsx";
 
-ReactDOM.render(<RSPHooks />, document.querySelector("#root"));
+ReactDOM.render(<Lotto />, document.querySelector("#root"));
