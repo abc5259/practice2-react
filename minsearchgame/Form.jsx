@@ -6,22 +6,30 @@ const Form = () => {
   const [cell, setCell] = useState(10);
   const [mine, setMine] = useState(20);
   const { dispatch } = useContext(TableContext);
+  const onChangeRow = useCallback(
+    e => {
+      setRow(e.target.value);
+    },
+    [row]
+  );
 
-  const onChangeRow = useCallback(e => {
-    setRow(e.target.value);
-  });
+  const onChangeCell = useCallback(
+    e => {
+      setCell(e.target.value);
+    },
+    [cell]
+  );
 
-  const onChangeCell = useCallback(e => {
-    setCell(e.target.value);
-  });
+  const onChangeMine = useCallback(
+    e => {
+      setMine(e.target.value);
+    },
+    [mine]
+  );
 
-  const onChangeMine = useCallback(e => {
-    setMine(e.target.value);
-  });
-
-  const onClickBtn = () => {
+  const onClickBtn = useCallback(() => {
     dispatch({ type: START_GAME, row, cell, mine });
-  };
+  }, [row, cell, mine]);
 
   return (
     <>

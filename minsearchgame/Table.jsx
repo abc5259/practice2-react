@@ -8,11 +8,9 @@ const Table = () => {
     <>
       <table>
         <tbody>
-          {Array(tableData.length)
-            .fill()
-            .map((row, i) => (
-              <Tr rowIndex={i} />
-            ))}
+          {tableData.map((tr, index) => (
+            <Tr key={index} rowIndex={index} />
+          ))}
         </tbody>
       </table>
     </>
