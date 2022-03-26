@@ -1,22 +1,17 @@
 import React from "react";
 import Tr from "./Tr";
 
-const Table = ({ onClick, tableData, dispatch }) => {
-  console.log("Table");
+const Table = ({ tableData, dispatch }) => {
   return (
     <table>
-      <tbody>
-        {Array(tableData.length)
-          .fill()
-          .map((tr, i) => (
-            <Tr
-              key={i}
-              rowIndex={i}
-              rowData={tableData[i]}
-              dispatch={dispatch}
-            />
-          ))}
-      </tbody>
+      {tableData.map((rowData, index) => (
+        <Tr
+          key={index}
+          rowIndex={index}
+          rowData={rowData}
+          dispatch={dispatch}
+        />
+      ))}
     </table>
   );
 };

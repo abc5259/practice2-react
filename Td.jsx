@@ -1,14 +1,14 @@
-import React, { memo, useCallback } from "react";
+import React, { useCallback } from "react";
 import { CLICK_CELL } from "./TicTakToe";
 
-const Td = memo(({ rowIndex, cellIndex, cellData, dispatch }) => {
+const Td = ({ rowIndex, cellIndex, dispatch, cellData }) => {
   const onClickTd = useCallback(() => {
-    if (cellData) {
-      return;
+    console.log(rowIndex, cellIndex);
+    if (cellData === "") {
+      dispatch({ type: CLICK_CELL, row: rowIndex, cell: cellIndex });
     }
-    dispatch({ type: CLICK_CELL, row: rowIndex, cell: cellIndex });
   }, [cellData]);
   return <td onClick={onClickTd}>{cellData}</td>;
-});
+};
 
 export default Td;

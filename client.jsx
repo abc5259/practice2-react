@@ -1,5 +1,5 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
-import MineSearch from "./minsearchgame/MineSearch.jsx";
+import TicTakToe from "./TicTakToe.jsx";
 
-ReactDOM.render(<MineSearch />, document.querySelector("#root"));
+ReactDOM.render(<TicTakToe />, document.querySelector("#root"));

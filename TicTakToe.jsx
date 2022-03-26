@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
+import React, { useCallback, useReducer, useEffect } from "react";
 import Table from "./Table";
 
 const initialState = {
@@ -18,18 +18,13 @@ export const CHANGE_TURN = "CHANGE_TURN";
 export const RESET_GAME = "RESET_GAME";
 
 const reducer = (state, action) => {
-  // state를 어떻게 바꿀지
-  switch (
-    action.type //action에 disPatch에 적어준 값이 들어감
-  ) {
+  switch (action.type) {
     case SET_WINNER:
-      // state.winner = action.winner 이렇게 직접 바꾸면 안된다.
       return {
-        //새로운 객체를 만들어서 state의 바뀐값만 바꿔준다.
         ...state,
         winner: action.winner,
       };
-    case CLICK_CELL:
+    case CLICK_CELL: {
       const tableData = [...state.tableData];
       tableData[action.row] = [...tableData[action.row]];
       tableData[action.row][action.cell] = state.turn;
@@ -38,6 +33,7 @@ const reducer = (state, action) => {
         tableData,
         recentCell: [action.row, action.cell],
       };
+    }
     case CHANGE_TURN:
       return {
         ...state,
@@ -54,23 +50,19 @@ const reducer = (state, action) => {
         ],
         recentCell: [-1, -1],
       };
-    default:
-      return state;
   }
 };
 
 const TicTakToe = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { winner, tableData, turn, recentCell } = state;
+  const { tableData, recentCell, winner, turn } = state;
   const onClickTable = useCallback(() => {
-    dispatch({ type: "SET_WINNER", winner: "O" }); //disPatch를 하면 reducer가 실행됨
+    dispatch({ type: SET_WINNER, winner: "O" });
   }, []);
 
   useEffect(() => {
     const [row, cell] = recentCell;
-    if (row < 0) {
-      return;
-    }
+    if (row < 0) return;
     let win = false;
     if (
       tableData[row][0] === turn &&
@@ -100,27 +92,30 @@ const TicTakToe = () => {
     ) {
       win = true;
     }
-    console.log(row, cell, turn);
     if (win) {
       dispatch({ type: SET_WINNER, winner: turn });
       dispatch({ type: RESET_GAME });
-      console.log(tableData);
     } else {
       let all = true;
       tableData.forEach(row => {
         row.forEach(cell => {
-          if (!cell) all = false;
+          if (!cell) {
+            all = false;
+          }
         });
       });
       if (all) {
         dispatch({ type: SET_WINNER, winner: "무승부" });
         dispatch({ type: RESET_GAME });
-      } else dispatch({ type: CHANGE_TURN });
+      } else {
+        dispatch({ type: CHANGE_TURN });
+      }
     }
   }, [recentCell]);
+
   return (
     <>
-      <Table onClick={onClickTable} tableData={tableData} dispatch={dispatch} />
+      <Table tableData={tableData} dispatch={dispatch} />
       {winner && <div>{winner}님의 승리</div>}
     </>
   );
